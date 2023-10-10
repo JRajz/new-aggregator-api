@@ -4,6 +4,18 @@ This documentation provides comprehensive information about the API endpoints an
 
 **POSTMAN COLLECTION**: [View Postman Collection](https://www.postman.com/cryosat-cosmonaut-54527758/workspace/development/collection/22854732-87ade348-3306-4b0c-87fe-2eb64ec41459?action=share&creator=22854732)
 
+## Environment Setup
+
+Before using the News Aggregator API, you'll need to set up your environment variables. Follow these steps:
+
+1. Create a `.env` file in the root directory of your project.
+
+2. Copy the contents from the provided `.env.sample` file to your newly created `.env` file.
+
+3. Fill in the required values in your `.env` file, such as API keys and other configuration details.
+
+4. Save and secure your `.env` file. Do not share it publicly, as it contains sensitive information.
+
 ## User Endpoints
 
 ### Register User
