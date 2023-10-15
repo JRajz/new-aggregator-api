@@ -1,4 +1,4 @@
-const fs = require("fs");
+const fs = require("fs").promises;
 const path = require("path");
 
 async function writeFile(newData, dataType) {
@@ -8,15 +8,10 @@ async function writeFile(newData, dataType) {
   try {
     console.log(`Writing File ${dataType}.json`);
 
-    await fs.writeFile(
-      filePath,
-      JSON.stringify(newData),
-      {
-        encoding: "utf8",
-        flag: "w",
-      },
-      () => {}
-    );
+    await fs.writeFile(filePath, JSON.stringify(newData), {
+      encoding: "utf8",
+      flag: "w",
+    });
 
     return false;
   } catch (err) {
