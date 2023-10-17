@@ -98,10 +98,15 @@ class Validator {
    * @returns
    */
   static validatePreferences(payloadPreferences = []) {
-    if (payloadPreferences.length > 5) {
+    if (!Array.isArray(payloadPreferences)) {
       return {
         error: true,
-        message: "You can select up to 5 preferences.",
+        message: "Preferences should be array of elements",
+      };
+    } else if (!payloadPreferences.length) {
+      return {
+        error: true,
+        message: "Please select atleast one preference",
       };
     }
 
@@ -124,20 +129,13 @@ class Validator {
   }
 
   static isValidId(articleId) {
-    const isError = !articleId || typeof articleId !== "string";
+    const hexRegex = /^[0-9a-fA-F]+$/;
+    const isError =
+      !articleId || typeof articleId !== "string" || !hexRegex.test(articleId);
 
     return {
       error: isError,
-      message: isError ? "Invalid news id" : "Valid news id",
-    };
-  }
-
-  static isValidId(articleId) {
-    const isError = !articleId || typeof articleId !== "string";
-
-    return {
-      error: isError,
-      message: isError ? "Invalid news id" : "Valid news id",
+      message: isError ? "Invalid article id" : "Valid article id",
     };
   }
 }
