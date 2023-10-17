@@ -4,6 +4,7 @@ const URL = "https://newsdata.io/api/1/news";
 const getNews = (req, res) => {
   let payload = {
     apiKey: process.env.API_SECRET,
+    language: "en",
   };
 
   if (req.user.preferences) {

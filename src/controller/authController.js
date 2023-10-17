@@ -1,17 +1,15 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { format } = require("date-fns");
-const { v4: uuidv4 } = require("uuid");
-const userData = require("../data/users.json");
 const validator = require("../helpers/validator");
-const { writeFile } = require("../helpers/fileOperations");
+const UserModel = require("../models/userModel");
+const userModel = new UserModel(); // Create an instance of UserModel
 
 const signup = async (req, res) => {
   let userPayload = req.body;
 
   const isValidate = validator.registerData(userPayload);
   if (!isValidate.error) {
-    let dbData = JSON.parse(JSON.stringify(userData));
+    let dbData = userModel.getAll();
 
     // Check if the email already exists in your system
     const isEmailDuplicate = dbData.some(
@@ -24,29 +22,16 @@ const signup = async (req, res) => {
         .json({ error: true, message: "Email address already exists" });
     }
 
-    // hash password
-    userPayload.password = bcrypt.hashSync(userPayload.password, 8);
+    try {
+      const user = await userModel.save(userPayload);
 
-    // Generate a new UUID for the user
-    userPayload.id = uuidv4();
-
-    // Create the current date and time
-    userPayload.createdAt = format(new Date(), "yyyy-MM-dd HH:mm:ss");
-
-    // adding default preferences
-    userPayload.preferences = ["top"];
-
-    // writing into memory
-    dbData.push(userPayload);
-
-    const isError = await writeFile(dbData, "users");
-    if (!isError) {
       return res.status(200).send({
         error: false,
-        user: userPayload,
+        user,
         message: "User registered successfully",
       });
-    } else {
+    } catch (err) {
+      console.log(err);
       return res.status(400).send({
         error: true,
         message: "Something went wrong while adding user",
@@ -62,7 +47,7 @@ const login = (req, res) => {
 
   const isValidate = validator.loginData(userPayload);
   if (!isValidate.error) {
-    let dbData = JSON.parse(JSON.stringify(userData));
+    let dbData = userModel.getAll();
 
     // checking for email exists in the system
     const user = dbData.find((user) => user.email === userPayload.email);

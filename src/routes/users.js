@@ -1,9 +1,6 @@
 const routes = require("express").Router();
+const { profile } = require("../controller/userController");
 
-routes.get("/profile", (req, res) => {
-  // excluding password
-  const user = (({ name, email, id }) => ({ name, email, id }))(req.user);
+routes.get("/profile", profile);
 
-  return res.status(200).json({ error: false, data: user });
-});
 module.exports = routes;

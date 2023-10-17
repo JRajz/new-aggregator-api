@@ -1,6 +1,6 @@
 const { validatePreferences } = require("../helpers/validator");
-const userData = require("../data/users.json");
-const { writeFile } = require("../helpers/fileOperations");
+const UserModel = require("../models/userModel");
+const userModel = new UserModel(); // Create an instance of UserModel
 
 const getUserPreferences = (req, res) => {
   return res
@@ -15,19 +15,20 @@ const updateUserPreferences = async (req, res) => {
     return res.status(400).json(isValidate);
   }
 
-  let dbData = JSON.parse(JSON.stringify(userData));
+  const userData = {
+    id: req.user.id,
+    preferences: req.body.preferences,
+  };
 
-  const index = dbData.findIndex((obj) => obj.id === req.user.id);
+  try {
+    await userModel.update(userData);
 
-  dbData[index].preferences = req.body.preferences;
-
-  const isError = await writeFile(dbData, "users");
-  if (!isError) {
     return res.status(200).send({
       error: false,
       message: "User preferences updated successfully",
     });
-  } else {
+  } catch (err) {
+    console.log(err);
     return res.status(400).send({
       error: true,
       message: "Something went wrong while updating preferences",

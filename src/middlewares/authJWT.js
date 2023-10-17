@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const userController = require("../controller/userController");
+const { getUserById } = require("../controller/userController");
 
 const verifyToken = (req, res, next) => {
   if (req.headers && req.headers.authorization) {
@@ -15,13 +15,13 @@ const verifyToken = (req, res, next) => {
           });
         }
 
-        const user = getUsersById(decode.id);
+        req.userId = decode.id;
+        const user = getUserById(req, res);
         if (!user) {
           return res
             .status(404)
             .json({ error: true, message: "User not found" });
         }
-
         req.user = user;
         next();
       }
