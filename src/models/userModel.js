@@ -13,6 +13,8 @@ class User {
     this.email = email;
     this.password = bcrypt.hashSync(password, 8); // hash password
     this.preferences = ["top"]; // adding default preferences
+    this.favouriteArticleIds = [];
+    this.readArticleIds = [];
     this.createdAt = format(new Date(), "yyyy-MM-dd HH:mm:ss"); // Set created date and time
   }
 }
