@@ -1,6 +1,7 @@
 const express = require("express");
 const routes = require("express").Router();
 
+const { fetchNews } = require("./service/newsService");
 // Require your routes and verifyToken middleware
 const publicRoutes = require("./routes/public");
 const usersRoutes = require("./routes/users");
@@ -39,5 +40,7 @@ app.listen(port, (err) => {
     console.log("Someting went wrong.");
   } else {
     console.log(`Server running successfully running at : ${port}.`);
+    // cron service to fetch new API
+    fetchNews();
   }
 });
