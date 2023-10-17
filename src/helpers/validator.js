@@ -122,6 +122,24 @@ class Validator {
       validPreferences: Validator.allowedPreferences,
     };
   }
+
+  static isValidId(articleId) {
+    const isError = !articleId || typeof articleId !== "string";
+
+    return {
+      error: isError,
+      message: isError ? "Invalid news id" : "Valid news id",
+    };
+  }
+
+  static isValidId(articleId) {
+    const isError = !articleId || typeof articleId !== "string";
+
+    return {
+      error: isError,
+      message: isError ? "Invalid news id" : "Valid news id",
+    };
+  }
 }
 
 module.exports = Validator;
