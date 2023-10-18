@@ -1,5 +1,6 @@
 class Validator {
   static emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+  static stringRegex = /^[A-Za-z\s]{2,30}$/;
   static allowedPreferences = [
     "business",
     "entertainment",
@@ -26,7 +27,11 @@ class Validator {
       message: "Validation Successful",
     };
 
-    if (!payloadData.hasOwnProperty("name") || payloadData.name.trim() == "") {
+    if (
+      !payloadData.hasOwnProperty("name") ||
+      payloadData.name.trim() == "" ||
+      !Validator.stringRegex.test(payloadData.name)
+    ) {
       returnData.error = true;
       returnData.message = "Name required and cannot be empty.";
     } else if (

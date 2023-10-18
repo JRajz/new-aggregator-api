@@ -15,9 +15,9 @@ describe("Validating the register user functionality", function () {
     done();
   });
 
-  it("Invalid name", function (done) {
+  it("Invalid name - Accepts only alphabets and spaces", function (done) {
     let userData = { ...userDetails };
-    userData.name = "";
+    userData.name = "Hello-Dude";
     let response = validator.registerData(userData);
     expect(response.error).equal(true);
     expect(response.message).equal("Name required and cannot be empty.");
