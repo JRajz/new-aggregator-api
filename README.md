@@ -12,7 +12,7 @@
 
 ## Description
 
-This documentation provides comprehensive information about the API endpoints and the associated authorization methods for the News Aggregator API. The News Aggregator API seamlessly integrates with the [newsdata.io service](https://newsdata.io/documentation) to deliver up-to-date news content.
+This documentation provides comprehensive information about the API endpoints and the associated authorization methods for the News Aggregator API. The News Aggregator API seamlessly integrates with the [NewsData.io](https://newsdata.io/documentation) service to deliver up-to-date news content.
 
 **POSTMAN COLLECTION**: [View Postman Collection](https://www.postman.com/cryosat-cosmonaut-54527758/workspace/development/collection/22854732-87ade348-3306-4b0c-87fe-2eb64ec41459?action=share&creator=22854732)
 
