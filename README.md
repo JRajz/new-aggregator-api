@@ -182,6 +182,6 @@ To run tests, run the following command
   npm run test
 ```
 
-## Authors
+## Author
 
 - [@Jishnu Raj](https://github.com/JRajz)
