@@ -47,8 +47,7 @@ class Validator {
       const payload = Object.keys(payloadData);
       if (payload.length > 3) {
         returnData.error = true;
-        returnData.message =
-          "Invalid payload. Additional properties found in the task info.";
+        returnData.message = "Invalid payload. Additional properties found.";
       }
     }
 
@@ -84,8 +83,7 @@ class Validator {
       const payload = Object.keys(payloadData);
       if (payload.length > 2) {
         returnData.error = true;
-        returnData.message =
-          "Invalid payload. Additional properties found in the task info.";
+        returnData.message = "Invalid payload. Additional properties found.";
       }
     }
 
