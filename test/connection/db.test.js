@@ -1,5 +1,7 @@
 const UserModel = require("../../src/models/userModel");
-const userModel = new UserModel();
+const User = new UserModel();
+const NewsModel = require("../../src/models/newsModel");
+const News = new NewsModel();
 
 before((done) => {
   console.log("------ Testcases Start --------");
@@ -7,17 +9,18 @@ before((done) => {
 });
 
 beforeEach((done) => {
-  userModel.reset();
+  User.reset(); // reset user data
+  News.reset(); // reset news data
   done();
 });
 
 afterEach((done) => {
-  userModel.reset();
+  User.reset();
+  News.reset();
   done();
 });
 
 after((done) => {
   console.log("------ Testcases End --------");
-  userModel.reset();
   done();
 });

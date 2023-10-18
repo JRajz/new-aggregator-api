@@ -12,11 +12,12 @@ const getNews = (req, res) => {
 
   // retrieve user preference news
   const userNews = getNewsByPreference(dbNews, userPreferences);
-  if (userNews) {
-    return res.status(200).json({ error: false, data: userNews });
-  } else {
-    return res.status(400).json({ error: false, message: "No data found" });
-  }
+
+  return res.status(200).json({
+    error: false,
+    data: userNews,
+    message: userNews.length ? "Data found" : "No data found",
+  });
 };
 
 const getReadNews = (req, res) => {

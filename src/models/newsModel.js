@@ -1,7 +1,6 @@
 const fs = require("fs").promises;
 const path = require("path");
 const { writeFile } = require("../helpers/fileOperations");
-const { throws } = require("assert");
 const filePath = path.join(__dirname, "..", `data/news.json`);
 
 class News {
@@ -56,7 +55,6 @@ class NewsModel {
    * @returns array
    */
   getAll() {
-    console.log("Get all news");
     return [...this.newsMap.values()];
   }
 
@@ -111,6 +109,13 @@ class NewsModel {
       console.log(error);
       throw new Error(`Failed to write news`);
     }
+  }
+
+  /**
+   * reset news data used for test
+   */
+  async reset() {
+    this.newsMap = new Map();
   }
 }
 
