@@ -1,8 +1,20 @@
 {
   "name": "news-aggregator-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "A powerful API for aggregating and delivering up-to-date news content with respect to user preference",
   "main": "index.js",
+  "keywords": [
+    "news-aggregator",
+    "API",
+    "news-content",
+    "authentication",
+    "data-fetching",
+    "Node.js",
+    "Express",
+    "JSON Web Tokens",
+    "data-storage",
+    "CRON jobs"
+  ],
   "scripts": {
     "auto": "nodemon --ignore 'data/' src/index.js",
     "test": "mocha --recursive 'test/**/*.js' --exit"
