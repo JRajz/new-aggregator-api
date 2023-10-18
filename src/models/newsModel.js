@@ -34,7 +34,7 @@ class NewsModel {
   async loadData() {
     try {
       const data = await fs.readFile(filePath, "utf8");
-      console.log("News json loaded successfully");
+      console.log(" ---------- News json loaded successfully ----------");
       if (data) {
         const newsData = JSON.parse(data);
         this.setMap(newsData);

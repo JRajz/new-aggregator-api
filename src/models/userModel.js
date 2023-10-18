@@ -34,14 +34,14 @@ class UserModel {
   async loadData() {
     try {
       const data = await fs.readFile(filePath, "utf8");
-      console.log("User json loaded successfully");
+      console.log("---------- User json loaded successfully ----------");
       if (data) {
         const userData = JSON.parse(data);
         this.setMap(userData);
       }
     } catch (err) {
       console.log(err);
-      console.log("File not exists");
+      console.log(" ---------- File not exists ---------- ");
     }
   }
 
@@ -57,7 +57,6 @@ class UserModel {
    * @returns array
    */
   getAll() {
-    console.log("Get all users");
     return [...this.userMap.values()];
   }
 
@@ -86,8 +85,6 @@ class UserModel {
     userDataArray.push(data);
 
     try {
-      console.log("Inserting user");
-
       await writeFile(userDataArray, "users");
 
       // include user in map
@@ -96,7 +93,7 @@ class UserModel {
       const { password, ...returnData } = data;
       return returnData;
     } catch (error) {
-      console.log("Failed to save user");
+      console.log(" ---------- Failed to save user ---------- ");
       console.log(error);
       return false;
     }
@@ -118,8 +115,6 @@ class UserModel {
     const userArray = [...copiedMap.values()];
 
     try {
-      console.log("Updating user");
-
       await writeFile(userArray, "users");
 
       // include user in map
@@ -127,8 +122,9 @@ class UserModel {
 
       return true;
     } catch (error) {
-      console.log("Failed to update user");
+      console.log(" ---------- Failed to update user ---------- ");
       console.log(error);
+
       return false;
     }
   }
@@ -139,6 +135,14 @@ class UserModel {
       newMap.set(key, value);
     }
     return newMap;
+  }
+
+  /**
+   * reset user data used for test
+   */
+  async reset() {
+    await writeFile([], "users");
+    this.userMap = new Map();
   }
 }
 

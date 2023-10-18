@@ -46,7 +46,7 @@ const getReadNews = (req, res) => {
 };
 
 const setReadNews = async (req, res) => {
-  const articleId = req.params.id;
+  const articleId = req.params.id || null;
   // validate preferences
   const isValidate = isValidId(articleId);
   if (isValidate.error) {
@@ -124,7 +124,7 @@ const getFavouriteNews = (req, res) => {
 };
 
 const setFavouriteNews = async (req, res) => {
-  const articleId = req.params.id;
+  const articleId = req.params.id || null;
   // validate preferences
   const isValidate = isValidId(articleId);
   if (isValidate.error) {

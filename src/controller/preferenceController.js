@@ -3,24 +3,27 @@ const UserModel = require("../models/userModel");
 const userModel = new UserModel(); // Create an instance of UserModel
 
 const getUserPreferences = (req, res) => {
-  return res
-    .status(200)
-    .json({ error: false, data: { preferences: req.user.preferences } });
+  return res.status(200).json({
+    error: false,
+    data: req.user.preferences,
+    message: "User Preferences",
+  });
 };
 
 const updateUserPreferences = async (req, res) => {
-  // validate preferences
-  const isValidate = validatePreferences(req.body.preferences);
-  if (isValidate.error) {
-    return res.status(400).json(isValidate);
-  }
-
-  const userData = {
-    id: req.user.id,
-    preferences: req.body.preferences,
-  };
-
   try {
+    const preferences = req.body.preferences ?? [];
+    // validate preferences
+    const isValidate = validatePreferences(preferences);
+    if (isValidate.error) {
+      return res.status(400).json(isValidate);
+    }
+
+    const userData = {
+      id: req.user.id,
+      preferences: preferences,
+    };
+
     await userModel.update(userData);
 
     return res.status(200).send({

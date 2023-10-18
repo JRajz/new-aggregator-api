@@ -10,7 +10,11 @@ const profile = async (req, res) => {
   // excluding password
   const user = (({ name, email, id }) => ({ name, email, id }))(req.user);
 
-  return res.status(200).json({ error: false, data: user });
+  return res.status(200).json({
+    error: false,
+    data: user,
+    message: "User Profile",
+  });
 };
 
 module.exports = { profile, getUserById };

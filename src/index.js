@@ -41,6 +41,10 @@ app.listen(port, (err) => {
   } else {
     console.log(`Server running successfully running at : ${port}.`);
     // cron service to fetch new API
-    fetchNews();
+    if (process.env.NODE_ENV !== "test") {
+      fetchNews();
+    }
   }
 });
+
+module.exports = app;

@@ -10,7 +10,6 @@ const verifyToken = (req, res, next) => {
         if (err) {
           return res.status(403).json({
             error: true,
-            err,
             message: "Token verification failed",
           });
         }

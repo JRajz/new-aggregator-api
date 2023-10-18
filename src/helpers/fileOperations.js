@@ -6,8 +6,6 @@ async function writeFile(newData, dataType) {
 
   // writing into file
   try {
-    console.log(`Writing File ${dataType}.json`);
-
     await fs.writeFile(filePath, JSON.stringify(newData), {
       encoding: "utf8",
       flag: "w",
@@ -15,8 +13,7 @@ async function writeFile(newData, dataType) {
 
     return false;
   } catch (err) {
-    console.log("Failed to write file.");
-    console.log(err);
+    console.log(`Failed to write file. Error:` + err);
     return true;
   }
 }
