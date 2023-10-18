@@ -156,7 +156,7 @@ Before using the News Aggregator API, you'll need to set up your environment var
 - **Authorization**: Access Token
 - **Path Variables**:
   - `keyword`: Search keyword to search in title or description
-- **Description**: Search from text from user preference news. Keyword accepts only accepts alphabets, numbers, and spaces
+- **Description**: Search from text from user preference news. Keyword only accepts alphabets, numbers, and spaces
 
 ## Dependencies
 
