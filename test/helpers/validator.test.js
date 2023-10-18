@@ -157,3 +157,25 @@ describe("Validating the article id functionality", function () {
     });
   });
 });
+
+describe("Validating the keyword functionality", function () {
+  it("Validate the keyword successfully", function (done) {
+    let response = validator.isValidKeyword("Sentence one");
+    expect(response.error).equal(false);
+    expect(response.message).equal("Valid keyword");
+    done();
+  });
+
+  const keywords = ["", "ABC-1", "The:1", "It's good"];
+
+  keywords.forEach((keyword) => {
+    it(`Invalid keyword - Keyword : ${keyword}`, (done) => {
+      let response = validator.isValidKeyword(keyword);
+      expect(response.error).equal(true);
+      expect(response.message).equal(
+        "Invalid keyword. Only accepts alphabets, numbers, and spaces"
+      );
+      done();
+    });
+  });
+});

@@ -136,6 +136,19 @@ class Validator {
       message: isError ? "Invalid article id" : "Valid article id",
     };
   }
+
+  static isValidKeyword(keyword) {
+    // Use a regular expression to check for alphabets, numbers, and spaces
+    const regex = /^[a-zA-Z0-9\s]+$/;
+    const isError = !regex.test(keyword);
+
+    return {
+      error: isError,
+      message: isError
+        ? "Invalid keyword. Only accepts alphabets, numbers, and spaces"
+        : "Valid keyword",
+    };
+  }
 }
 
 module.exports = Validator;

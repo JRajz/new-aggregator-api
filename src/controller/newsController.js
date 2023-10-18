@@ -1,5 +1,5 @@
 const { getNewsByPreference } = require("../helpers/filter");
-const { isValidId } = require("../helpers/validator");
+const { isValidId, isValidKeyword } = require("../helpers/validator");
 const NewsModel = require("../models/newsModel");
 const UserModel = require("../models/userModel");
 const newsModel = new NewsModel();
@@ -167,10 +167,33 @@ const setFavouriteNews = async (req, res) => {
   }
 };
 
+const searchNews = async (req, res) => {
+  const keyword = req.params.keyword || null;
+
+  const isValidate = isValidKeyword(keyword);
+  if (isValidate.error) {
+    return res.status(400).json(isValidate);
+  }
+
+  const userPreferences = req.user.preferences;
+
+  const dbNews = newsModel.getAll();
+
+  // retrieve user preference news
+  const userNews = getNewsByPreference(dbNews, userPreferences, keyword);
+
+  return res.status(200).json({
+    error: false,
+    data: userNews,
+    message: userNews.length ? "News found" : "No news found",
+  });
+};
+
 module.exports = {
   getNews,
   getReadNews,
   setReadNews,
   getFavouriteNews,
   setFavouriteNews,
+  searchNews,
 };

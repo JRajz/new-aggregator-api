@@ -149,6 +149,15 @@ Before using the News Aggregator API, you'll need to set up your environment var
   - `id`: News Article ID
 - **Description**: Mark an article as a favorite/unfavourite.
 
+#### Search News
+
+- **Method**: POST
+- **URL**: `http://localhost:3000/news/search/:keyword`
+- **Authorization**: Access Token
+- **Path Variables**:
+  - `keyword`: Search keyword to search in title or description
+- **Description**: Search from text from user preference news. Keyword accepts only accepts alphabets, numbers, and spaces
+
 ## Dependencies
 
 The News Aggregator API relies on the following dependencies:
