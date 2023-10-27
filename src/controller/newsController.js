@@ -32,18 +32,11 @@ const getReadNews = (req, res) => {
     }
   }
 
-  if (articles.length) {
-    return res.status(200).json({
-      error: false,
-      data: articles,
-      message: "Read articles found",
-    });
-  } else {
-    return res.status(400).json({
-      error: false,
-      message: "No articles read found",
-    });
-  }
+  return res.status(200).json({
+    error: false,
+    data: articles,
+    message: articles.length ? "Read articles found" : "No articles read found",
+  });
 };
 
 const setReadNews = async (req, res) => {

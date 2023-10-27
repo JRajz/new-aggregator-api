@@ -32,7 +32,7 @@ const signup = async (req, res) => {
       });
     } catch (err) {
       console.log(err);
-      return res.status(400).send({
+      return res.status(500).send({
         error: true,
         message: "Something went wrong while adding user",
       });
