@@ -10,15 +10,20 @@ const {
 
 // get user preference news
 routes.get("/", getNews);
-// get user read news
+
+// get user readed news
 routes.get("/read", getReadNews);
-// mark news read
+
+// mark news as read
 routes.post("/:id/read", setReadNews);
-// see user favourites news
+
+// get user favourite news
 routes.get("/favorite", getFavouriteNews);
-// mark news favorite
+
+// mark news as favorite
 routes.post("/:id/favorite", setFavouriteNews);
-// serach user preference news
+
+// search articles in user preference news
 routes.get("/search/:keyword", searchNews);
 
 module.exports = routes;
