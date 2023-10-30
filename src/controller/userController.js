@@ -1,4 +1,4 @@
-const UserModel = require("../models/userModel");
+const UserModel = require('../models/userModel');
 const userModel = new UserModel(); // Create an instance of UserModel
 
 const getUserById = (req, res) => {
@@ -13,7 +13,7 @@ const profile = async (req, res) => {
   return res.status(200).json({
     error: false,
     data: user,
-    message: "User Profile",
+    message: 'User Profile',
   });
 };
 

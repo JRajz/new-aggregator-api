@@ -1,4 +1,4 @@
-const routes = require("express").Router();
+const routes = require('express').Router();
 const {
   getNews,
   getFavouriteNews,
@@ -6,24 +6,24 @@ const {
   setFavouriteNews,
   setReadNews,
   searchNews,
-} = require("../controller/newsController");
+} = require('../controller/newsController');
 
 // get user preference news
-routes.get("/", getNews);
+routes.get('/', getNews);
 
 // get user readed news
-routes.get("/read", getReadNews);
+routes.get('/read', getReadNews);
 
 // mark news as read
-routes.post("/:id/read", setReadNews);
+routes.post('/:id/read', setReadNews);
 
 // get user favourite news
-routes.get("/favorite", getFavouriteNews);
+routes.get('/favorite', getFavouriteNews);
 
 // mark news as favorite
-routes.post("/:id/favorite", setFavouriteNews);
+routes.post('/:id/favorite', setFavouriteNews);
 
 // search articles in user preference news
-routes.get("/search/:keyword", searchNews);
+routes.get('/search/:keyword', searchNews);
 
 module.exports = routes;

@@ -1,8 +1,8 @@
-const { default: axios } = require("axios");
-const cron = require("node-cron");
-const NewsModel = require("../models/newsModel");
+const { default: axios } = require('axios');
+const cron = require('node-cron');
+const NewsModel = require('../models/newsModel');
 const newsModel = new NewsModel(); // Create an instance
-const URL = "https://newsdata.io/api/1/news";
+const URL = 'https://newsdata.io/api/1/news';
 
 // Function to fetch data from a URL
 async function fetchData(url) {
@@ -28,7 +28,7 @@ async function fetchDataFromUrls(urls) {
         // Add a delay of 2 seconds (2000 milliseconds) between API calls
         await new Promise((resolve) => setTimeout(resolve, 2000));
       } catch (error) {
-        console.error("Error:", error.message);
+        console.error('Error:', error.message);
       }
     }
 
@@ -40,7 +40,7 @@ async function fetchDataFromUrls(urls) {
 
     await newsModel.writeToFile();
   } catch (error) {
-    console.error("Error:", error);
+    console.error('Error:', error);
   }
 }
 
@@ -49,22 +49,22 @@ function fetchNews() {
 
   let payload = {
     apiKey: process.env.API_SECRET,
-    language: "en",
+    language: 'en',
   };
 
   const categories = [
-    "business",
-    "entertainment",
-    "environment",
-    "food",
-    "health",
-    "politics",
-    "science",
-    "sports",
-    "technology",
-    "top",
-    "tourism",
-    "world",
+    'business',
+    'entertainment',
+    'environment',
+    'food',
+    'health',
+    'politics',
+    'science',
+    'sports',
+    'technology',
+    'top',
+    'tourism',
+    'world',
   ];
 
   for (const category of categories) {
@@ -77,7 +77,7 @@ function fetchNews() {
   fetchDataFromUrls(urls);
 
   // cron scheduled for 2 hours
-  cron.schedule("*/120 * * * *", () => fetchDataFromUrls(urls));
+  cron.schedule('*/120 * * * *', () => fetchDataFromUrls(urls));
 }
 
 module.exports = { fetchNews };

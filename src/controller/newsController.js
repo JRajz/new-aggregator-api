@@ -1,7 +1,8 @@
-const { getNewsByPreference } = require("../helpers/filter");
-const { isValidId, isValidKeyword } = require("../helpers/validator");
-const NewsModel = require("../models/newsModel");
-const UserModel = require("../models/userModel");
+const { getNewsByPreference } = require('../helpers/filter');
+const { isValidId, isValidKeyword } = require('../helpers/validator');
+const NewsModel = require('../models/newsModel');
+const UserModel = require('../models/userModel');
+
 const newsModel = new NewsModel();
 const userModel = new UserModel();
 
@@ -16,7 +17,7 @@ const getNews = (req, res) => {
   return res.status(200).json({
     error: false,
     data: userNews,
-    message: userNews.length ? "Data found" : "No data found",
+    message: userNews.length ? 'Data found' : 'No data found',
   });
 };
 
@@ -24,7 +25,7 @@ const getReadNews = (req, res) => {
   const readArticles = req.user.readArticleIds;
 
   const articles = [];
-  let article;
+  // eslint-disable-next-line no-restricted-syntax
   for (const id of readArticles) {
     const article = newsModel.getById(id);
     if (article) {
@@ -35,7 +36,7 @@ const getReadNews = (req, res) => {
   return res.status(200).json({
     error: false,
     data: articles,
-    message: articles.length ? "Read articles found" : "No articles read found",
+    message: articles.length ? 'Read articles found' : 'No articles read found',
   });
 };
 
@@ -49,7 +50,7 @@ const setReadNews = async (req, res) => {
 
   const article = newsModel.getById(articleId);
   if (!article) {
-    return res.status(404).send({ error: true, message: "Article not found" });
+    return res.status(404).send({ error: true, message: 'Article not found' });
   }
   const userPreferences = req.user.preferences;
   if (
@@ -57,15 +58,15 @@ const setReadNews = async (req, res) => {
   ) {
     return res.status(404).send({
       error: true,
-      message: "User does not has access to the article",
+      message: 'User does not has access to the article',
     });
   }
 
   try {
-    let readArticleIds = req.user.readArticleIds;
+    const { readArticleIds } = req.user;
 
     const index = readArticleIds.indexOf(articleId);
-    if (index == -1) {
+    if (index === -1) {
       readArticleIds.push(articleId);
     } else {
       readArticleIds.splice(index, 1);
@@ -80,22 +81,22 @@ const setReadNews = async (req, res) => {
 
     return res.status(200).send({
       error: false,
-      message: "Article read updated",
+      message: 'Article read updated',
     });
   } catch (err) {
     console.log(err);
     return res.status(400).send({
       error: true,
-      message: "Something went wrong while updating article read",
+      message: 'Something went wrong while updating article read',
     });
   }
 };
 
 const getFavouriteNews = (req, res) => {
-  const favouriteArticleIds = req.user.favouriteArticleIds;
+  const { favouriteArticleIds } = req.user;
 
   const articles = [];
-  let article;
+  // eslint-disable-next-line no-restricted-syntax
   for (const id of favouriteArticleIds) {
     const article = newsModel.getById(id);
     if (article) {
@@ -103,18 +104,13 @@ const getFavouriteNews = (req, res) => {
     }
   }
 
-  if (articles.length) {
-    return res.status(200).json({
-      error: false,
-      data: articles,
-      message: "Favourite articles found",
-    });
-  } else {
-    return res.status(400).json({
-      error: false,
-      message: "No favourite articles found",
-    });
-  }
+  return res.status(200).json({
+    error: false,
+    data: articles,
+    message: articles.length
+      ? 'Favourite articles found'
+      : 'No favourite articles found',
+  });
 };
 
 const setFavouriteNews = async (req, res) => {
@@ -127,14 +123,14 @@ const setFavouriteNews = async (req, res) => {
 
   const isArticle = newsModel.getById(articleId);
   if (!isArticle) {
-    return res.status(404).send({ error: true, message: "Article not found" });
+    return res.status(404).send({ error: true, message: 'Article not found' });
   }
 
   try {
-    let favouriteArticleIds = req.user.favouriteArticleIds;
+    const { favouriteArticleIds } = req.user;
 
     const index = favouriteArticleIds.indexOf(articleId);
-    if (index == -1) {
+    if (index === -1) {
       favouriteArticleIds.push(articleId);
     } else {
       favouriteArticleIds.splice(index, 1);
@@ -149,13 +145,13 @@ const setFavouriteNews = async (req, res) => {
 
     return res.status(200).send({
       error: false,
-      message: "Article favourite updated",
+      message: 'Article favourite updated',
     });
   } catch (err) {
     console.log(err);
     return res.status(400).send({
       error: true,
-      message: "Something went wrong while updating artcile favourites",
+      message: 'Something went wrong while updating artcile favourites',
     });
   }
 };
@@ -178,7 +174,7 @@ const searchNews = async (req, res) => {
   return res.status(200).json({
     error: false,
     data: userNews,
-    message: userNews.length ? "News found" : "No news found",
+    message: userNews.length ? 'News found' : 'No news found',
   });
 };
 

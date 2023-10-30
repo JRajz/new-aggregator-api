@@ -17,7 +17,8 @@
   ],
   "scripts": {
     "auto": "nodemon --ignore 'data/' src/index.js",
-    "test": "mocha --recursive 'test/**/*.js' --exit"
+    "test": "mocha --recursive 'test/**/*.js' --exit",
+    "format": "npx prettier --ignore-path .gitignore --write 'src/**/*.js'"
   },
   "author": "Jishnu Raj",
   "license": "ISC",
@@ -35,7 +36,14 @@
   "devDependencies": {
     "chai": "^4.3.10",
     "chai-http": "^4.4.0",
+    "eslint": "^8.52.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-node": "^4.1.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^5.0.1",
     "mocha": "^10.2.0",
-    "nodemon": "^3.0.1"
+    "nodemon": "^3.0.1",
+    "prettier": "^3.0.3"
   }
 }

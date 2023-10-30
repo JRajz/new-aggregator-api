@@ -1,7 +1,7 @@
-const fs = require("fs").promises;
-const path = require("path");
-const { writeFile } = require("../helpers/fileOperations");
-const filePath = path.join(__dirname, "..", `data/news.json`);
+const fs = require('fs').promises;
+const path = require('path');
+const { writeFile } = require('../helpers/fileOperations');
+const filePath = path.join(__dirname, '..', `data/news.json`);
 
 class News {
   constructor({ article_id, title, link, category, image_url, description }) {
@@ -32,14 +32,14 @@ class NewsModel {
    */
   async loadData() {
     try {
-      const data = await fs.readFile(filePath, "utf8");
-      console.log(" ---------- News json loaded successfully ----------");
+      const data = await fs.readFile(filePath, 'utf8');
+      console.log(' ---------- News json loaded successfully ----------');
       if (data) {
         const newsData = JSON.parse(data);
         this.setMap(newsData);
       }
     } catch (err) {
-      console.log("News.json not exists");
+      console.log('News.json not exists');
     }
   }
 
@@ -96,12 +96,12 @@ class NewsModel {
    */
   async writeToFile() {
     try {
-      console.log("Update news");
+      console.log('Update news');
 
       const newsData = this.getAll();
 
       if (newsData.length) {
-        await writeFile(newsData, "news");
+        await writeFile(newsData, 'news');
       }
 
       return true;

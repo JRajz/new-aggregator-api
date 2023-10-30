@@ -1,11 +1,11 @@
-const routes = require("express").Router();
+const routes = require('express').Router();
 const {
   getUserPreferences,
   updateUserPreferences,
-} = require("../controller/preferenceController");
+} = require('../controller/preferenceController');
 
-routes.get("/", getUserPreferences);
+routes.get('/', getUserPreferences);
 
-routes.put("/", updateUserPreferences);
+routes.put('/', updateUserPreferences);
 
 module.exports = routes;

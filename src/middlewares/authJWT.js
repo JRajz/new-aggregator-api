@@ -1,5 +1,5 @@
-const jwt = require("jsonwebtoken");
-const { getUserById } = require("../controller/userController");
+const jwt = require('jsonwebtoken');
+const { getUserById } = require('../controller/userController');
 
 const verifyToken = (req, res, next) => {
   if (req.headers && req.headers.authorization) {
@@ -10,7 +10,7 @@ const verifyToken = (req, res, next) => {
         if (err) {
           return res.status(403).json({
             error: true,
-            message: "Token verification failed",
+            message: 'Token verification failed',
           });
         }
 
@@ -19,7 +19,7 @@ const verifyToken = (req, res, next) => {
         if (!user) {
           return res
             .status(404)
-            .json({ error: true, message: "User not found" });
+            .json({ error: true, message: 'User not found' });
         }
         req.user = user;
         next();
@@ -28,7 +28,7 @@ const verifyToken = (req, res, next) => {
   } else {
     return res.status(403).json({
       error: true,
-      message: "Authorization header not found",
+      message: 'Authorization header not found',
     });
   }
 };

@@ -1,20 +1,22 @@
 class Validator {
-  static emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-  static stringRegex = /^[A-Za-z\s]{2,30}$/;
-  static allowedPreferences = [
-    "business",
-    "entertainment",
-    "environment",
-    "food",
-    "health",
-    "politics",
-    "science",
-    "sports",
-    "technology",
-    "top",
-    "tourism",
-    "world",
-  ];
+  constructor() {
+    this.emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+    this.stringRegex = /^[A-Za-z\s]{2,30}$/;
+    this.allowedPreferences = [
+      'business',
+      'entertainment',
+      'environment',
+      'food',
+      'health',
+      'politics',
+      'science',
+      'sports',
+      'technology',
+      'top',
+      'tourism',
+      'world',
+    ];
+  }
 
   /**
    *
@@ -22,37 +24,41 @@ class Validator {
    * @returns
    */
   static registerData(payloadData) {
+    // eslint-disable-next-line prefer-const
     let returnData = {
       error: false,
-      message: "Validation Successful",
+      message: 'Validation Successful',
     };
 
     if (
-      !payloadData.hasOwnProperty("name") ||
-      payloadData.name.trim() == "" ||
+      // eslint-disable-next-line no-prototype-builtins
+      !payloadData.hasOwnProperty('name') ||
+      payloadData.name.trim() === '' ||
       !Validator.stringRegex.test(payloadData.name)
     ) {
       returnData.error = true;
-      returnData.message = "Name required and cannot be empty.";
+      returnData.message = 'Name required and cannot be empty.';
     } else if (
-      !payloadData.hasOwnProperty("email") ||
-      payloadData.email.trim() == "" ||
+      // eslint-disable-next-line no-prototype-builtins
+      !payloadData.hasOwnProperty('email') ||
+      payloadData.email.trim() === '' ||
       !Validator.emailRegex.test(payloadData.email)
     ) {
       returnData.error = true;
-      returnData.message = "Email required and cannot be empty.";
+      returnData.message = 'Email required and cannot be empty.';
     } else if (
-      !payloadData.hasOwnProperty("password") ||
-      payloadData.password.trim() == ""
+      // eslint-disable-next-line no-prototype-builtins
+      !payloadData.hasOwnProperty('password') ||
+      payloadData.password.trim() === ''
     ) {
       returnData.error = true;
-      returnData.message = "Password required and cannot be empty.";
+      returnData.message = 'Password required and cannot be empty.';
     } else {
       // allows only 3 keys (name, email, password) throws error more than that
       const payload = Object.keys(payloadData);
       if (payload.length > 3) {
         returnData.error = true;
-        returnData.message = "Invalid payload. Additional properties found.";
+        returnData.message = 'Invalid payload. Additional properties found.';
       }
     }
 
@@ -65,30 +71,33 @@ class Validator {
    * @returns
    */
   static loginData(payloadData) {
+    // eslint-disable-next-line prefer-const
     let returnData = {
       error: false,
-      message: "Validation Successful",
+      message: 'Validation Successful',
     };
 
     if (
-      !payloadData.hasOwnProperty("email") ||
-      payloadData.email.trim() == "" ||
+      // eslint-disable-next-line no-prototype-builtins
+      !payloadData.hasOwnProperty('email') ||
+      payloadData.email.trim() === '' ||
       !Validator.emailRegex.test(payloadData.email)
     ) {
       returnData.error = true;
-      returnData.message = "Email required and cannot be empty.";
+      returnData.message = 'Email required and cannot be empty.';
     } else if (
-      !payloadData.hasOwnProperty("password") ||
-      payloadData.password.trim() == ""
+      // eslint-disable-next-line no-prototype-builtins
+      !payloadData.hasOwnProperty('password') ||
+      payloadData.password.trim() === ''
     ) {
       returnData.error = true;
-      returnData.message = "Password required and cannot be empty.";
+      returnData.message = 'Password required and cannot be empty.';
     } else {
       // allows only 2 keys (email, password) throws error more than that
       const payload = Object.keys(payloadData);
       if (payload.length > 2) {
         returnData.error = true;
-        returnData.message = "Invalid payload. Additional properties found.";
+        returnData.message = 'Invalid payload. Additional properties found.';
       }
     }
 
@@ -104,16 +113,18 @@ class Validator {
     if (!Array.isArray(payloadPreferences)) {
       return {
         error: true,
-        message: "Preferences should be array of elements",
+        message: 'Preferences should be array of elements',
       };
+      // eslint-disable-next-line no-else-return
     } else if (!payloadPreferences.length) {
       return {
         error: true,
-        message: "Please select atleast one preference",
+        message: 'Please select atleast one preference',
       };
     }
 
-    let invalidPreferences = [];
+    const invalidPreferences = [];
+    // eslint-disable-next-line no-restricted-syntax
     for (const preference of payloadPreferences) {
       if (!Validator.allowedPreferences.includes(preference)) {
         invalidPreferences.push(preference);
@@ -124,9 +135,9 @@ class Validator {
     return {
       error: isError,
       message: !isError
-        ? "Preferences are valid."
-        : "Invalid preferences found.",
-      invalidPreferences: invalidPreferences,
+        ? 'Preferences are valid.'
+        : 'Invalid preferences found.',
+      invalidPreferences,
       validPreferences: Validator.allowedPreferences,
     };
   }
@@ -134,11 +145,11 @@ class Validator {
   static isValidId(articleId) {
     const hexRegex = /^[0-9a-fA-F]+$/;
     const isError =
-      !articleId || typeof articleId !== "string" || !hexRegex.test(articleId);
+      !articleId || typeof articleId !== 'string' || !hexRegex.test(articleId);
 
     return {
       error: isError,
-      message: isError ? "Invalid article id" : "Valid article id",
+      message: isError ? 'Invalid article id' : 'Valid article id',
     };
   }
 
@@ -150,8 +161,8 @@ class Validator {
     return {
       error: isError,
       message: isError
-        ? "Invalid keyword. Only accepts alphabets, numbers, and spaces"
-        : "Valid keyword",
+        ? 'Invalid keyword. Only accepts alphabets, numbers, and spaces'
+        : 'Valid keyword',
     };
   }
 }

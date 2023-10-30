@@ -1,10 +1,10 @@
-const fs = require("fs").promises;
-const bcrypt = require("bcrypt");
-const { format } = require("date-fns");
-const { v4: uuidv4 } = require("uuid");
-const path = require("path");
-const { writeFile } = require("../helpers/fileOperations");
-const filePath = path.join(__dirname, "..", `data/users.json`);
+const fs = require('fs').promises;
+const bcrypt = require('bcrypt');
+const { format } = require('date-fns');
+const { v4: uuidv4 } = require('uuid');
+const path = require('path');
+const { writeFile } = require('../helpers/fileOperations');
+const filePath = path.join(__dirname, '..', `data/users.json`);
 
 class User {
   constructor({ name, email, password }) {
@@ -12,10 +12,10 @@ class User {
     this.name = name;
     this.email = email;
     this.password = bcrypt.hashSync(password, 8); // hash password
-    this.preferences = ["top"]; // adding default preferences
+    this.preferences = ['top']; // adding default preferences
     this.favouriteArticleIds = [];
     this.readArticleIds = [];
-    this.createdAt = format(new Date(), "yyyy-MM-dd HH:mm:ss"); // Set created date and time
+    this.createdAt = format(new Date(), 'yyyy-MM-dd HH:mm:ss'); // Set created date and time
   }
 }
 
@@ -33,15 +33,15 @@ class UserModel {
 
   async loadData() {
     try {
-      const data = await fs.readFile(filePath, "utf8");
-      console.log("---------- User json loaded successfully ----------");
+      const data = await fs.readFile(filePath, 'utf8');
+      console.log('---------- User json loaded successfully ----------');
       if (data) {
         const userData = JSON.parse(data);
         this.setMap(userData);
       }
     } catch (err) {
       console.log(err);
-      console.log(" ---------- File not exists ---------- ");
+      console.log(' ---------- File not exists ---------- ');
     }
   }
 
@@ -85,7 +85,7 @@ class UserModel {
     userDataArray.push(data);
 
     try {
-      await writeFile(userDataArray, "users");
+      await writeFile(userDataArray, 'users');
 
       // include user in map
       this.userMap.set(data.id, data);
@@ -93,7 +93,7 @@ class UserModel {
       const { password, ...returnData } = data;
       return returnData;
     } catch (error) {
-      console.log(" ---------- Failed to save user ---------- ");
+      console.log(' ---------- Failed to save user ---------- ');
       console.log(error);
       return false;
     }
@@ -115,14 +115,14 @@ class UserModel {
     const userArray = [...copiedMap.values()];
 
     try {
-      await writeFile(userArray, "users");
+      await writeFile(userArray, 'users');
 
       // include user in map
       this.userMap.set(userData.id, userData);
 
       return true;
     } catch (error) {
-      console.log(" ---------- Failed to update user ---------- ");
+      console.log(' ---------- Failed to update user ---------- ');
       console.log(error);
 
       return false;
@@ -141,7 +141,7 @@ class UserModel {
    * reset user data used for test
    */
   async reset() {
-    await writeFile([], "users");
+    await writeFile([], 'users');
     this.userMap = new Map();
   }
 }
